@@ -38,12 +38,14 @@ export const homeMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/QiuFeng.jpg',
-    name: '秋风',
-    title: '特邀观察员',
+    avatar: '/images/avatars/LuYifei.png',
+    name: '卢逸飞',
+    title: '代码',
     desc: '',
     links: [
-      { icon: 'qq', link: 'https://user.qzone.qq.com/2185206324' },
+      { icon: 'github', link: 'https://github.com/LuYifei2011' },
+      { icon: websiteIcon, link: 'https://luyifei2011.github.io/zh-cn' },
+      { icon: 'qq', link: 'https://user.qzone.qq.com/3945929082' },
     ]
   },
   {
@@ -69,14 +71,12 @@ export const allMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/LuYifei.png',
-    name: '卢逸飞',
-    title: '代码',
+    avatar: '/images/avatars/QiuFeng.jpg',
+    name: '秋风',
+    title: '特邀观察员',
     desc: '',
     links: [
-      { icon: 'github', link: 'https://github.com/LuYifei2011' },
-      { icon: websiteIcon, link: 'https://luyifei2011.github.io/zh-cn' },
-      { icon: 'qq', link: 'https://user.qzone.qq.com/3945929082' },
+      { icon: 'qq', link: 'https://user.qzone.qq.com/2185206324' },
     ]
   },
 ]
