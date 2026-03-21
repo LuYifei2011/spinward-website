@@ -46,28 +46,145 @@ features:
 <script setup>
 import { VPTeamMembers } from 'vitepress/theme'
 import { homeMembers } from './scripts/menbers'
+import { onMounted, onUnmounted } from 'vue'
+
+let _cleanup = null
+
+onMounted(() => {
+  const heroEl = document.querySelector('.VPHomeHero')
+  const nameEl = heroEl?.querySelector('.name')
+  if (!heroEl || !nameEl) return
+
+  const extras = [...heroEl.querySelectorAll('.text, .tagline, .actions, .image')]
+
+  // 全屏毛玻璃遮罩
+  const overlay = document.createElement('div')
+  overlay.className = 'scroll-glass-overlay'
+  document.body.appendChild(overlay)
+
+  // 在 hero 前插入滚动缓冲区，使 hero 初始在视口下方
+  const DIST = window.innerHeight
+  const spacer = document.createElement('div')
+  spacer.style.height = DIST + 'px'
+  heroEl.before(spacer)
+
+  // 原标题与其余 hero 内容初始全部隐藏，由 JS 统一控制
+  nameEl.style.opacity = '0'
+  extras.forEach(el => { el.style.opacity = '0' })
+
+  // 固定克隆：唯一显示的标题，负责从左下角飞到 hero 目标位置
+  const nameClone = nameEl.cloneNode(true)
+  nameClone.style.cssText = 'position:fixed;margin:0;z-index:20;pointer-events:none;'
+  document.body.appendChild(nameClone)
+
+  requestAnimationFrame(() => {
+    const cloneH = nameClone.offsetHeight
+
+    // 起始位置：左下角
+    const startLeft = 32
+    const startTop = window.innerHeight - 48 - cloneH
+
+    // 目标位置：scrollY=0 时 nameEl 在文档中的位置，
+    // 当 scrollY=DIST 时视口位置恰好是 getBoundingClientRect().top - DIST
+    const nameRect = nameEl.getBoundingClientRect()
+    const targetLeft = nameRect.left
+    const targetTop = nameRect.top - DIST
+
+    // 设置初始位置
+    nameClone.style.left = startLeft + 'px'
+    nameClone.style.top = startTop + 'px'
+
+    const update = () => {
+      const p = Math.min(window.scrollY / DIST, 1)
+
+      // 毛玻璃遮罩淡入
+      overlay.style.opacity = String(p)
+
+      // 克隆从左下角平滑移动到 hero 目标位置
+      nameClone.style.left = (startLeft + (targetLeft - startLeft) * p) + 'px'
+      nameClone.style.top  = (startTop  + (targetTop  - startTop)  * p) + 'px'
+
+      // 接近完成时：无缝切换为原始元素（位置完全重合时替换）
+      if (p >= 0.98) {
+        nameClone.style.opacity = '0'
+        nameEl.style.opacity = '1'
+      } else {
+        nameClone.style.opacity = '1'
+        nameEl.style.opacity = '0'
+      }
+
+      // 其余 hero 元素淡入
+      extras.forEach(el => { el.style.opacity = String(p) })
+    }
+
+    window.addEventListener('scroll', update, { passive: true })
+    update()
+
+    _cleanup = () => {
+      window.removeEventListener('scroll', update)
+      overlay.remove()
+      spacer.remove()
+      nameClone.remove()
+      nameEl.style.opacity = ''
+      extras.forEach(el => { el.style.opacity = '' })
+    }
+  })
+})
+
+onUnmounted(() => {
+  _cleanup?.()
+  _cleanup = null
+})
 </script>
 
 <style>
 body .is-home {
-  background-image: url('/images/background-light.webp');
+  background-image: url('/images/backgrounds/light.webp');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
 }
 .dark body .is-home {
-  background-image: url('/images/background-dark.webp');
+  background-image: url('/images/backgrounds/dark.webp');
+}
+@media (max-width: 768px) {
+  body .is-home {
+    background-image: url('/images/backgrounds/light-mobile.webp');
+  }
+  .dark body .is-home {
+    background-image: url('/images/backgrounds/dark-mobile.webp');
+  }
 }
 
-.is-home .VPHomeHero .container {
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.7);
+/* hero 其余元素由 JS 控制淡入，CSS 设初始状态防 SSR 闪烁 */
+.is-home .VPHomeHero .text,
+.is-home .VPHomeHero .tagline,
+.is-home .VPHomeHero .actions,
+.is-home .VPHomeHero .image {
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* 全屏毛玻璃遮罩（背景层之上，内容层之下）*/
+.scroll-glass-overlay {
+  position: fixed;
+  inset: 0;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  will-change: opacity;
 }
-.dark .is-home .VPHomeHero .container {
-  background: rgba(50, 50, 50, 0.7);
+.dark .scroll-glass-overlay {
+  background: rgba(20, 20, 20, 0.6);
+}
+
+/* 确保页面内容在毛玻璃遮罩之上渲染 */
+.is-home .VPHome {
+  position: relative;
+  z-index: 10;
 }
 
 .is-home .VPHomeFeatures .VPImage {
