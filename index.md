@@ -41,13 +41,13 @@ import { homeMembers } from './scripts/menbers'
 
 <style>
 body .is-home {
-  background-image: url('/images/background-light.png');
+  background-image: url('/images/background-light.webp');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
 }
 .dark body .is-home {
-  background-image: url('/images/background-dark.png');
+  background-image: url('/images/background-dark.webp');
 }
 
 .is-home .VPHomeHero .container {

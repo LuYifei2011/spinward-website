@@ -16,7 +16,7 @@ const websiteIcon = {
 
 export const homeMembers = [
   {
-    avatar: '/images/avatars/StellarWeaver.png',
+    avatar: '/images/avatars/StellarWeaver.webp',
     name: '驱星赫赫',
     title: '室长 & 美术',
     desc: '',
@@ -27,7 +27,7 @@ export const homeMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/TheShy.jpg',
+    avatar: '/images/avatars/TheShy.webp',
     name: 'TheShy',
     title: '音乐 & 代码',
     desc: '',
@@ -38,7 +38,7 @@ export const homeMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/LuYifei.png',
+    avatar: '/images/avatars/LuYifei.webp',
     name: '卢逸飞',
     title: '代码',
     desc: '',
@@ -49,7 +49,7 @@ export const homeMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/HongAn.jpg',
+    avatar: '/images/avatars/HongAn.webp',
     name: '红岸',
     title: '美术 & 程序',
     desc: '',
@@ -62,7 +62,7 @@ export const homeMembers = [
 export const allMembers = [
   ...homeMembers,
   {
-    avatar: '/images/avatars/DanDing.jpg',
+    avatar: '/images/avatars/DanDing.webp',
     name: '淡定',
     title: '审核员',
     desc: '',
@@ -71,7 +71,7 @@ export const allMembers = [
     ]
   },
   {
-    avatar: '/images/avatars/QiuFeng.jpg',
+    avatar: '/images/avatars/QiuFeng.webp',
     name: '秋风',
     title: '特邀观察员',
     desc: '',
