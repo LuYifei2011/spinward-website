@@ -78,17 +78,20 @@ onMounted(() => {
   document.body.appendChild(nameClone)
 
   requestAnimationFrame(() => {
-    const cloneH = nameClone.offsetHeight
+    let cloneH, startLeft, startTop, targetLeft, targetTop
 
-    // 起始位置：左下角
-    const startLeft = 32
-    const startTop = window.innerHeight - 48 - cloneH
+    const recalc = () => {
+      cloneH = nameClone.offsetHeight
+      startLeft = 32
+      startTop = window.innerHeight - 48 - cloneH
+      const nameRect = nameEl.getBoundingClientRect()
+      targetLeft = nameRect.left
+      // nameEl 在文档中的绝对 top = nameRect.top + scrollY，
+      // 滚动 DIST 后其视口 top = 绝对top - DIST
+      targetTop = nameRect.top + window.scrollY - DIST
+    }
 
-    // 目标位置：scrollY=0 时 nameEl 在文档中的位置，
-    // 当 scrollY=DIST 时视口位置恰好是 getBoundingClientRect().top - DIST
-    const nameRect = nameEl.getBoundingClientRect()
-    const targetLeft = nameRect.left
-    const targetTop = nameRect.top - DIST
+    recalc()
 
     // 设置初始位置
     nameClone.style.left = startLeft + 'px'
@@ -117,11 +120,18 @@ onMounted(() => {
       extras.forEach(el => { el.style.opacity = String(p) })
     }
 
+    const onResize = () => {
+      recalc()
+      update()
+    }
+
     window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
     update()
 
     _cleanup = () => {
       window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', onResize)
       overlay.remove()
       spacer.remove()
       nameClone.remove()
