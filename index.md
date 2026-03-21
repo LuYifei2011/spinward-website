@@ -40,24 +40,24 @@ import { homeMembers } from './scripts/menbers'
 </script>
 
 <style>
-body {
+body .is-home {
   background-image: url('/images/background-light.png');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
 }
-.dark body {
+.dark body .is-home {
   background-image: url('/images/background-dark.png');
 }
 
-.VPHomeHero .container {
+.is-home .VPHomeHero .container {
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 2rem;
 }
-.dark .VPHomeHero .container {
+.dark .is-home .VPHomeHero .container {
   background: rgba(50, 50, 50, 0.7);
 }
 </style>
