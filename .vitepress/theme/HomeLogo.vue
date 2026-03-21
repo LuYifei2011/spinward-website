@@ -15,10 +15,11 @@ import logoSvg from '../../public/images/logo.svg?raw'
 }
 
 .dark .logo-container {
-  color: #19C2FE;
+  color: #A8B1FF;
 }
 
-.logo-container svg {
+.logo-container svg,
+.logo-container {
   width: 100%;
   height: 100%;
 }
