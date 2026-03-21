@@ -39,6 +39,29 @@ import { VPTeamMembers } from 'vitepress/theme'
 import { homeMembers } from './scripts/menbers'
 </script>
 
+<style>
+body {
+  background-image: url('/images/background-light.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+.dark body {
+  background-image: url('/images/background-dark.png');
+}
+
+.VPHomeHero .container {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+}
+.dark .VPHomeHero .container {
+  background: rgba(50, 50, 50, 0.7);
+}
+</style>
+
 <br />
 
 # 核心团队
