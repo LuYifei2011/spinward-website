@@ -23,15 +23,24 @@ features:
     details: 还原了美国与苏联的冷战时期
     link: https://www.ccw.site/detail/6430b5f2d8146b06e0c3300a
     linkText: 了解更多
+    icon:
+      src: /images/projects/american-soviet-cold-war.webp
+      alt: American Soviet Cold War
   - title: 星空深处
     details: 在星空的深处，究竟藏着什么秘密？
     link: https://www.ccw.site/detail/6784a63fe77d7c09f357513f
     linkText: 了解更多
+    icon:
+        src: /images/projects/星空深处.webp
+        alt: 星空深处
 
   - title: 迷宫
     details: 你是一个鼠标，某一天，你意外地穿越到了2000年，你在这个陌生的电脑中游荡，发现这台电脑有些不对劲，你深入探索，到了一个奇怪的区域，一个红色的鼠标从角落蹿了出来，他好像有敌意，你碰到了他，你被他格式化了......
     link: https://www.ccw.site/detail/63c3ef78defdd851bb3d29b2
     linkText: 了解更多
+    icon:
+        src: /images/projects/迷宫.webp
+        alt: 迷宫
 ---
 
 <script setup>
@@ -59,6 +68,13 @@ body .is-home {
 }
 .dark .is-home .VPHomeHero .container {
   background: rgba(50, 50, 50, 0.7);
+}
+
+.is-home .VPHomeFeatures .VPImage {
+  width: 100%;
+  height: 200px;
+  border-radius: 0.5rem;
+  object-fit: cover;
 }
 </style>
 
