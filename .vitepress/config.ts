@@ -7,6 +7,11 @@ const vitePressOptions = {
   description: "创造无限可能的游戏世界",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: {
+      light: '/images/logo-light.svg',
+      dark: '/images/logo-dark.svg',
+    },
+
     nav: [
       { text: '主页', link: '/' },
       { text: '关于我们', link: '/about' },

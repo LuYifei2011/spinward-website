@@ -8,8 +8,8 @@ hero:
   text: "创造无限可能的游戏世界"
   tagline: 启旋游戏工作室致力于打造令人难忘的游戏体验，将创意与技术完美融合，为玩家带来前所未有的冒险旅程。
   image:
-    src: /images/logo.svg
-    alt: 启旋游戏工作室
+    src: /images/logo-light.svg
+    alt: 启旋游戏工作室 Logo
   actions:
     - theme: brand
       text: 关于我们
@@ -138,6 +138,10 @@ onUnmounted(() => {
 </script>
 
 <style>
+.dark .VPHomeHero .VPImage {
+  content: url('/images/logo-dark.svg');
+}
+
 body .is-home {
   background-image: url('/images/backgrounds/light.webp');
   background-size: cover;
