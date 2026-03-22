@@ -44,6 +44,10 @@ const vitePressOptions = {
     footer: {
       copyright: '© 2026 启旋游戏工作室. 保留所有权利。',
     },
+
+    editLink: {
+    pattern: 'https://github.com/LuYifei2011/spinward-website/edit/main/:path',
+  },
   },
   sitemap: {
     hostname: 'https://spinward.pages.dev',
