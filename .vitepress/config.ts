@@ -44,7 +44,12 @@ const vitePressOptions = {
     footer: {
       copyright: '© 2026 启旋游戏工作室. 保留所有权利。',
     },
-  }
+  },
+  sitemap: {
+    hostname: 'https://spinward.pages.dev',
+  },
+  srcExclude: ['README.md'],
+  lastUpdated: true,
 }
 
 const vitePressI18nOptions = {
