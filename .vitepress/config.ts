@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type HeadConfig, type UserConfig } from 'vitepress'
 import { withI18n } from 'vitepress-i18n'
 
 // https://vitepress.dev/reference/site-config
-const vitePressOptions = {
+const vitePressOptions: UserConfig = {
   title: "启旋游戏工作室",
   description: "创造无限可能的游戏世界",
   themeConfig: {
@@ -54,6 +54,7 @@ const vitePressOptions = {
   },
   srcExclude: ['README.md'],
   lastUpdated: true,
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }] as HeadConfig],
 }
 
 const vitePressI18nOptions = {
