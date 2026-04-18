@@ -72,56 +72,36 @@ onMounted(() => {
   nameEl.style.opacity = '0'
   extras.forEach(el => { el.style.opacity = '0' })
 
-  // 固定克隆：唯一显示的标题，负责从左下角飞到 hero 目标位置
-  const nameClone = nameEl.cloneNode(true)
-  nameClone.style.cssText = 'position:fixed;margin:0;z-index:20;pointer-events:none;'
-  document.body.appendChild(nameClone)
+  // 底部下拉提示
+  const scrollHint = document.createElement('button')
+  scrollHint.type = 'button'
+  scrollHint.className = 'scroll-down-hint'
+  scrollHint.setAttribute('aria-label', '向下滚动')
+  scrollHint.innerHTML = '<span>向下滚动</span><i aria-hidden="true">↓</i>'
+  scrollHint.addEventListener('click', () => {
+    window.scrollTo({ top: DIST, behavior: 'smooth' })
+  })
+  document.body.appendChild(scrollHint)
 
   requestAnimationFrame(() => {
-    let cloneH, startLeft, startTop, targetLeft, targetTop
-
-    const recalc = () => {
-      cloneH = nameClone.offsetHeight
-      startLeft = 32
-      startTop = window.innerHeight - 48 - cloneH
-      const nameRect = nameEl.getBoundingClientRect()
-      targetLeft = nameRect.left
-      // nameEl 在文档中的绝对 top = nameRect.top + scrollY，
-      // 滚动 DIST 后其视口 top = 绝对top - DIST
-      targetTop = nameRect.top + window.scrollY - DIST
-    }
-
-    recalc()
-
-    // 设置初始位置
-    nameClone.style.left = startLeft + 'px'
-    nameClone.style.top = startTop + 'px'
-
     const update = () => {
       const p = Math.min(window.scrollY / DIST, 1)
 
       // 毛玻璃遮罩淡入
       overlay.style.opacity = String(p)
 
-      // 克隆从左下角平滑移动到 hero 目标位置
-      nameClone.style.left = (startLeft + (targetLeft - startLeft) * p) + 'px'
-      nameClone.style.top  = (startTop  + (targetTop  - startTop)  * p) + 'px'
-
-      // 接近完成时：无缝切换为原始元素（位置完全重合时替换）
-      if (p >= 0.98) {
-        nameClone.style.opacity = '0'
-        nameEl.style.opacity = '1'
-      } else {
-        nameClone.style.opacity = '1'
-        nameEl.style.opacity = '0'
-      }
+      // hero 标题与其余元素同步淡入
+      nameEl.style.opacity = String(p)
 
       // 其余 hero 元素淡入
       extras.forEach(el => { el.style.opacity = String(p) })
+
+      // 下拉提示随滚动淡出
+      scrollHint.style.opacity = String(1 - p)
+      scrollHint.style.transform = `translateX(-50%) translateY(${p * 10}px)`
     }
 
     const onResize = () => {
-      recalc()
       update()
     }
 
@@ -134,7 +114,7 @@ onMounted(() => {
       window.removeEventListener('resize', onResize)
       overlay.remove()
       spacer.remove()
-      nameClone.remove()
+      scrollHint.remove()
       nameEl.style.opacity = ''
       extras.forEach(el => { el.style.opacity = '' })
     }
@@ -193,6 +173,51 @@ body .is-home {
 }
 .dark .scroll-glass-overlay {
   background: rgba(20, 20, 20, 0.6);
+}
+
+.scroll-down-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(10, 20, 48, 0.35);
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.scroll-down-hint i {
+  display: inline-block;
+  font-style: normal;
+  animation: scroll-hint-bounce 1.1s ease-in-out infinite;
+}
+
+.scroll-down-hint:hover {
+  background: rgba(10, 20, 48, 0.5);
+}
+
+.dark .scroll-down-hint {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+@keyframes scroll-hint-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 /* 确保页面内容在毛玻璃遮罩之上渲染 */
