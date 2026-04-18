@@ -207,6 +207,10 @@ body .is-home {
   border-radius: 0.5rem;
   object-fit: cover;
 }
+
+html:not(.dark) {
+  --vp-home-hero-name-color: #012180;
+}
 </style>
 
 <br />
