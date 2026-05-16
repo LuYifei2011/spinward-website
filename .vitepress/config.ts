@@ -1,5 +1,6 @@
 import { defineConfig, type HeadConfig, type UserConfig } from 'vitepress'
 import { withI18n } from 'vitepress-i18n'
+import footnote from 'markdown-it-footnote'
 
 // https://vitepress.dev/reference/site-config
 const vitePressOptions: UserConfig = {
@@ -24,8 +25,12 @@ const vitePressOptions: UserConfig = {
         link: '/about'
       },
       {
-        text: '组织章程',
-        link: '/constitution'
+        text: '公约',
+        link: '/convention'
+      },
+      {
+        text: '成员管理办法',
+        link: '/member-info-management'
       },
       {
         text: '团队成员',
@@ -46,8 +51,12 @@ const vitePressOptions: UserConfig = {
     },
 
     editLink: {
-    pattern: 'https://github.com/LuYifei2011/spinward-website/edit/main/:path',
-  },
+      pattern: 'https://github.com/LuYifei2011/spinward-website/edit/main/:path',
+    },
+
+    outline: {
+      level: 'deep',
+    },
   },
   sitemap: {
     hostname: 'https://spinward.pages.dev',
@@ -55,6 +64,11 @@ const vitePressOptions: UserConfig = {
   srcExclude: ['README.md'],
   lastUpdated: true,
   head: [['link', { rel: 'icon', href: '/favicon.ico' }] as HeadConfig],
+  markdown: {
+    config: (md) => {
+      md.use(footnote)
+    }
+  },
 }
 
 const vitePressI18nOptions = {

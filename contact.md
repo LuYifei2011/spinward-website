@@ -2,4 +2,5 @@
 
 [启旋游戏 SpinwardGame QQ 官号](https://user.qzone.qq.com/3958045390) | 
 [开发部 QQ 群](https://qm.qq.com/q/mmTBsSADtu) | 
-[共创世界](https://www.ccw.site/student/63908118adf27e7b487b356e)
+[共创世界](https://www.ccw.site/student/63908118adf27e7b487b356e) |
+[加入我们](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAHDN8UtURjJLSVNFQTlEWkZKMTdTSE1YTFFGREFaMS4u)
