@@ -1,0 +1,411 @@
+html.admin-editor-shell,
+body.admin-editor-shell {
+  overflow: hidden !important;
+}
+
+html.admin-editor-shell {
+  height: 100%;
+}
+
+body.admin-editor-shell {
+  height: 100vh;
+}
+
+html.admin-editor-shell .VPNav,
+html.admin-editor-shell .VPLocalNav,
+html.admin-editor-shell .VPSkipLink {
+  display: none !important;
+}
+
+.VPDoc:has(.admin-editor-page),
+.VPDoc:has(.admin-editor-page) .container,
+.VPDoc:has(.admin-editor-page) .content,
+.VPDoc:has(.admin-editor-page) .content-container {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.VPContent:has(.admin-editor-page) {
+  padding-top: 0 !important;
+}
+
+.VPContent:has(.admin-editor-page),
+.VPDoc:has(.admin-editor-page),
+.VPDoc:has(.admin-editor-page) .container,
+.VPDoc:has(.admin-editor-page) .content,
+.VPDoc:has(.admin-editor-page) .content-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.admin-editor-page {
+  --editor-border: rgba(60, 60, 67, 0.16);
+  --editor-muted: rgba(60, 60, 67, 0.68);
+  --editor-bg-soft: rgba(246, 246, 247, 0.88);
+  --editor-bg-panel: var(--vp-c-bg);
+  --editor-accent: #2f6f5e;
+  --editor-danger: #b3261e;
+  --editor-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--vp-c-bg-soft);
+}
+
+.dark .admin-editor-page {
+  --editor-border: rgba(235, 235, 245, 0.16);
+  --editor-muted: rgba(235, 235, 245, 0.64);
+  --editor-bg-soft: rgba(37, 37, 41, 0.82);
+  --editor-accent: #4fb395;
+  --editor-danger: #ffb4ab;
+}
+
+.admin-editor-panel,
+.admin-editor-main {
+  min-height: 0;
+  background: var(--editor-bg-panel);
+}
+
+.admin-editor-panel {
+  min-width: 0;
+  border-right: 1px solid var(--editor-border);
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+.admin-editor-main {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+.admin-editor-toolbar,
+.admin-editor-actions,
+.admin-editor-footer,
+.admin-editor-footer-actions,
+.sidebar-editor-toolbar,
+.admin-editor-tabs,
+.sidebar-editor-row-actions,
+.admin-editor-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.admin-editor-toolbar,
+.admin-editor-header,
+.admin-editor-footer {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--editor-border);
+}
+
+.admin-editor-footer {
+  justify-content: space-between;
+  border-top: 1px solid var(--editor-border);
+  border-bottom: 0;
+  color: var(--editor-muted);
+  font-size: 13px;
+}
+
+.admin-editor-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-editor-header strong {
+  display: block;
+  max-width: min(58vw, 760px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-editor-header span,
+.admin-editor-help {
+  color: var(--editor-muted);
+  font-size: 13px;
+}
+
+.admin-editor-help {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--editor-border);
+  line-height: 1.5;
+}
+
+.admin-editor-tab,
+.admin-editor-button,
+.admin-editor-danger,
+.admin-editor-icon-button,
+.sidebar-editor-drag {
+  min-height: 34px;
+  border: 1px solid var(--editor-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-editor-icon-button,
+.sidebar-editor-drag {
+  width: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-text {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.admin-editor-tab.active,
+.admin-editor-button.primary {
+  border-color: var(--editor-accent);
+  background: var(--editor-accent);
+  color: white;
+}
+
+.admin-editor-danger {
+  color: var(--editor-danger);
+}
+
+.admin-editor-input,
+.admin-editor-textarea {
+  min-height: 36px;
+  width: 100%;
+  border: 1px solid var(--editor-border);
+  border-radius: 6px;
+  padding: 7px 9px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font: inherit;
+}
+
+.admin-editor-textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.admin-editor-tree {
+  min-height: 0;
+  overflow: auto;
+  padding: 8px;
+}
+
+.admin-editor-tree-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 16px 18px minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 8px;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-editor-tree-item.active {
+  background: var(--editor-bg-soft);
+  color: var(--editor-accent);
+}
+
+.admin-editor-tree-item.dropTarget:hover {
+  outline: 1px dashed var(--editor-accent);
+}
+
+.admin-editor-tree-path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-editor-draft-dot {
+  border-radius: 999px;
+  padding: 2px 6px;
+  background: var(--editor-accent);
+  color: white;
+  font-size: 12px;
+}
+
+.admin-editor-status {
+  min-height: 30px;
+  padding: 7px 12px;
+  color: var(--editor-muted);
+  font-size: 13px;
+  border-bottom: 1px solid var(--editor-border);
+}
+
+.admin-editor-status.error {
+  color: var(--editor-danger);
+}
+
+.admin-editor-content {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.admin-editor-content .v-md-editor {
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.admin-editor-actions {
+  padding: 10px 12px;
+  border-top: 1px solid var(--editor-border);
+}
+
+.sidebar-editor {
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+.sidebar-editor-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.sidebar-editor-row {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) minmax(120px, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  border: 1px solid var(--editor-border);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--vp-c-bg);
+}
+
+.sidebar-editor-children {
+  grid-column: 2 / -1;
+  display: grid;
+  gap: 8px;
+  margin-left: 4px;
+  padding-left: 12px;
+  border-left: 2px solid var(--editor-border);
+}
+
+.sidebar-editor-child {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) auto;
+  gap: 8px;
+}
+
+.admin-editor-empty {
+  padding: 32px 12px;
+  color: var(--editor-muted);
+  text-align: center;
+}
+
+.admin-editor-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.admin-editor-dialog {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--editor-border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--vp-c-bg);
+  box-shadow: var(--editor-shadow);
+}
+
+.admin-editor-dialog header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-editor-dialog h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.admin-editor-dialog p,
+.admin-editor-dialog label {
+  margin: 0;
+  color: var(--editor-muted);
+}
+
+.admin-editor-dialog label {
+  display: grid;
+  gap: 6px;
+  color: var(--vp-c-text-1);
+}
+
+.admin-editor-dialog-actions {
+  justify-content: flex-end;
+}
+
+@media (max-width: 860px) {
+  .VPContent:has(.admin-editor-page),
+  .VPDoc:has(.admin-editor-page),
+  .VPDoc:has(.admin-editor-page) .container,
+  .VPDoc:has(.admin-editor-page) .content,
+  .VPDoc:has(.admin-editor-page) .content-container,
+  .admin-editor-page {
+    height: 100dvh;
+  }
+
+  .admin-editor-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(180px, 34dvh) minmax(0, 1fr);
+  }
+
+  .admin-editor-panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--editor-border);
+  }
+
+  .admin-editor-header,
+  .admin-editor-footer {
+    align-items: stretch;
+  }
+
+  .admin-editor-header,
+  .admin-editor-footer,
+  .sidebar-editor-row,
+  .sidebar-editor-child {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-editor-header,
+  .admin-editor-footer {
+    display: grid;
+  }
+
+  .sidebar-editor-row {
+    grid-template-columns: auto 1fr;
+  }
+
+  .sidebar-editor-row > .admin-editor-input,
+  .sidebar-editor-row-actions,
+  .sidebar-editor-children {
+    grid-column: 1 / -1;
+  }
+}
