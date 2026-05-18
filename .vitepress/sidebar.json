@@ -1,0 +1,22 @@
+[
+  {
+    "text": "关于我们",
+    "link": "/about"
+  },
+  {
+    "text": "公约",
+    "link": "/convention"
+  },
+  {
+    "text": "成员管理办法",
+    "link": "/member-info-management"
+  },
+  {
+    "text": "团队成员",
+    "link": "/members"
+  },
+  {
+    "text": "联系我们",
+    "link": "/contact"
+  }
+]

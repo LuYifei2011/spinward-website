@@ -1,6 +1,7 @@
 import { defineConfig, type HeadConfig, type UserConfig } from 'vitepress'
 import { withI18n } from 'vitepress-i18n'
 import footnote from 'markdown-it-footnote'
+import sidebar from './sidebar.json'
 
 // https://vitepress.dev/reference/site-config
 const vitePressOptions: UserConfig = {
@@ -19,28 +20,7 @@ const vitePressOptions: UserConfig = {
       { text: '联系我们', link: '/contact' },
     ],
 
-    sidebar: [
-      {
-        text: '关于我们',
-        link: '/about'
-      },
-      {
-        text: '公约',
-        link: '/convention'
-      },
-      {
-        text: '成员管理办法',
-        link: '/member-info-management'
-      },
-      {
-        text: '团队成员',
-        link: '/members'
-      },
-      {
-        text: '联系我们',
-        link: '/contact'
-      },
-    ],
+    sidebar,
 
     // socialLinks: [
     //   { icon: 'bilibili', link: 'https://space.bilibili.com/3546373351803036' },
