@@ -33,6 +33,14 @@ const vitePressOptions: UserConfig = {
         link: '/member-info-management'
       },
       {
+        text: '成员结构',
+        link: '/member-structure'
+      },
+      {
+        text: '引用的法律',
+        link: '/cited-laws'
+      },
+      {
         text: '团队成员',
         link: '/members'
       },
