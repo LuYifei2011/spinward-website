@@ -70,7 +70,7 @@ const vitePressOptions: UserConfig = {
     hostname: 'https://spinward.pages.dev',
   },
   srcExclude: ['README.md'],
-  lastUpdated: true,
+  // lastUpdated: true,
   head: [['link', { rel: 'icon', href: '/favicon.ico' }] as HeadConfig],
   markdown: {
     config: (md) => {
