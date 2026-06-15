@@ -26,19 +26,35 @@ const vitePressOptions: UserConfig = {
       },
       {
         text: '公约',
-        link: '/convention'
+        link: '/公约'
       },
       {
         text: '成员管理办法',
-        link: '/member-info-management'
+        link: '/成员信息登记与管理办法'
       },
       {
         text: '成员结构',
-        link: '/member-structure'
+        link: '/成员结构'
+      },
+      {
+        text: '成员行为守则',
+        link: '/成员行为守则'
+      },
+      {
+        text: '第三方素材使用台账模板',
+        link: '/第三方素材使用台账模板'
+      },
+      {
+        text: '年会细则',
+        link: '/年会细则'
+      },
+      {
+        text: '人事管理办法',
+        link: '/人事管理办法'
       },
       {
         text: '引用的法律',
-        link: '/cited-laws'
+        link: '/引用法律条款原文汇编'
       },
       {
         text: '团队成员',
