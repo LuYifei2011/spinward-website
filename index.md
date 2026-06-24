@@ -133,7 +133,8 @@ onMounted(() => {
     nameEl.style.transform = 'translateY(0)'
 
     extras.forEach((el, index) => {
-      const delay = 180 + index * 130
+      // 图片不延时出现
+      const delay = el.className === "image" ? 0 : 180 + index * 130
       setTimeout(() => {
         el.style.transition = 'opacity 0.85s cubic-bezier(0.23, 1.0, 0.32, 1), transform 0.85s cubic-bezier(0.23, 1.0, 0.32, 1)'
         el.style.opacity = '1'
