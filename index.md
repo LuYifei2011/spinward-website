@@ -118,66 +118,46 @@ onMounted(() => {
   overlay.className = 'scroll-glass-overlay'
   document.body.appendChild(overlay)
 
-  // 在 hero 前插入滚动缓冲区，使 hero 初始在视口下方
-  const DIST = window.innerHeight
-  const spacer = document.createElement('div')
-  spacer.style.height = DIST + 'px'
-  heroEl.before(spacer)
-
-  // 原标题与其余 hero 内容初始全部隐藏，由 JS 统一控制
+  // 页面初始淡滑入动画（hero 元素）
   nameEl.style.opacity = '0'
-  extras.forEach(el => { el.style.opacity = '0' })
-
-  // 底部下拉提示
-  const scrollHint = document.createElement('button')
-  scrollHint.type = 'button'
-  scrollHint.className = 'scroll-down-hint'
-  scrollHint.setAttribute('aria-label', '向下滚动')
-  scrollHint.innerHTML = '<span>向下滚动</span><i aria-hidden="true">↓</i>'
-  scrollHint.addEventListener('click', () => {
-    window.scrollTo({ top: DIST, behavior: 'smooth' })
+  nameEl.style.transform = 'translateY(40px)'
+  extras.forEach(el => {
+    el.style.opacity = '0'
+    el.style.transform = 'translateY(30px)'
   })
-  document.body.appendChild(scrollHint)
 
+  // 触发 hero 淡滑入
   requestAnimationFrame(() => {
-    const update = () => {
-      const p = Math.min(window.scrollY / DIST, 1)
+    nameEl.style.transition = 'opacity 1s cubic-bezier(0.23, 1.0, 0.32, 1), transform 1s cubic-bezier(0.23, 1.0, 0.32, 1)'
+    nameEl.style.opacity = '1'
+    nameEl.style.transform = 'translateY(0)'
 
-      // 毛玻璃遮罩淡入
-      overlay.style.opacity = String(p)
-
-      // hero 标题与其余元素同步淡入
-      nameEl.style.opacity = String(p)
-
-      // 其余 hero 元素淡入
-      extras.forEach(el => { el.style.opacity = String(p) })
-
-      // 下拉提示随滚动淡出
-      scrollHint.style.opacity = String(1 - p)
-      scrollHint.style.transform = `translateX(-50%) translateY(${p * 10}px)`
-    }
-
-    const onResize = () => {
-      update()
-    }
-
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', onResize, { passive: true })
-    update()
-
-    _cleanup = () => {
-      window.cancelAnimationFrame(animationFrame)
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', onResize)
-      particleLayer.remove()
-      fxLayer.remove()
-      overlay.remove()
-      spacer.remove()
-      scrollHint.remove()
-      nameEl.style.opacity = ''
-      extras.forEach(el => { el.style.opacity = '' })
-    }
+    extras.forEach((el, index) => {
+      // 图片不延时出现
+      const delay = el.className === "image" ? 0 : 180 + index * 130
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.85s cubic-bezier(0.23, 1.0, 0.32, 1), transform 0.85s cubic-bezier(0.23, 1.0, 0.32, 1)'
+        el.style.opacity = '1'
+        el.style.transform = 'translateY(0)'
+      }, delay)
+    })
   })
+
+  _cleanup = () => {
+    window.cancelAnimationFrame(animationFrame)
+    particleLayer.remove()
+    fxLayer.remove()
+    overlay.remove()
+
+    nameEl.style.transition = ''
+    nameEl.style.opacity = ''
+    nameEl.style.transform = ''
+    extras.forEach(el => {
+      el.style.transition = ''
+      el.style.opacity = ''
+      el.style.transform = ''
+    })
+  }
 })
 
 onUnmounted(() => {
@@ -209,13 +189,15 @@ body .is-home {
   }
 }
 
-/* hero 其余元素由 JS 控制淡入，CSS 设初始状态防 SSR 闪烁 */
+/* hero 元素初始状态（支持淡滑入） */
+.is-home .VPHomeHero .name,
 .is-home .VPHomeHero .text,
 .is-home .VPHomeHero .tagline,
 .is-home .VPHomeHero .actions,
 .is-home .VPHomeHero .image {
   opacity: 0;
-  will-change: opacity;
+  transform: translateY(30px);
+  will-change: opacity, transform;
 }
 
 /* 全屏毛玻璃遮罩（背景层之上，内容层之下）*/
@@ -225,10 +207,8 @@ body .is-home {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
   pointer-events: none;
   z-index: 5;
-  will-change: opacity;
 }
 .dark .scroll-glass-overlay {
   background: rgba(20, 20, 20, 0.6);
@@ -316,51 +296,6 @@ html:not(.dark) .fx-day-orb {
   15% { opacity: 1; }
   35% { opacity: 0; transform: rotate(45deg) translateX(100vw); }
   100% { opacity: 0; }
-}
-
-.scroll-down-hint {
-  position: fixed;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  z-index: 12;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(10, 20, 48, 0.35);
-  color: #fff;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
-}
-
-.scroll-down-hint i {
-  display: inline-block;
-  font-style: normal;
-  animation: scroll-hint-bounce 1.1s ease-in-out infinite;
-}
-
-.scroll-down-hint:hover {
-  background: rgba(10, 20, 48, 0.5);
-}
-
-.dark .scroll-down-hint {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.35);
-}
-
-@keyframes scroll-hint-bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
 }
 
 /* 确保页面内容在毛玻璃遮罩之上渲染 */
