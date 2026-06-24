@@ -17,6 +17,7 @@ export const homeMembers = [
       { icon: 'bilibili', link: 'https://space.bilibili.com/3546373351803036' },
       { icon: 'qq', link: 'http://3881767812.qzone.qq.com/' },
       { icon: ccwIcon, link: 'https://www.ccw.site/student/63908118adf27e7b487b356e' },
+      { icon: 'github', link: 'https://github.com/StellarWeaverGame' },
     ]
   },
   {
